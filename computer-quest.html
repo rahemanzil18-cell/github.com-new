@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Computer Quest – Rah-e-Manzil IT Skill Training Centre</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F1533;
+  --navy2:#1B2454;
+  --card:#232C60;
+  --card-light:#2C3775;
+  --violet:#7C5CFC;
+  --violet-deep:#5A3EE0;
+  --cyan:#42DCEE;
+  --yellow:#FFD75E;
+  --coral:#FF6F91;
+  --green:#5EE6A0;
+  --ink:#161B3A;
+  --paper:#F6F7FF;
+  --paper-dim:#C7CCF0;
+  --font-d:'Baloo 2',sans-serif;
+  --font-b:'Nunito',sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:var(--font-b);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(124,92,252,0.25), transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(66,220,238,0.18), transparent 45%),
+    var(--navy);
+  color:var(--paper);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+#app{max-width:640px;margin:0 auto;min-height:100vh;position:relative;padding-bottom:28px;}
+h1,h2,h3{font-family:var(--font-d);margin:0;}
+button{font-family:var(--font-b);cursor:pointer;border:none;}
+.hidden{display:none !important;}
+
+/* ---------- Top bar ---------- */
+.topbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px 6px;
+}
+.stat-pill{
+  display:flex;align-items:center;gap:6px;
+  background:var(--card);
+  border-radius:999px;padding:6px 12px;
+  font-weight:800;font-size:14px;
+  box-shadow:0 3px 0 rgba(0,0,0,0.25) inset;
+}
+.stat-row{display:flex;gap:8px;}
+.icon-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:var(--card);color:var(--paper);
+  font-size:18px;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 3px 0 rgba(0,0,0,0.25);
+}
+.icon-btn:active{transform:translateY(2px);box-shadow:none;}
+
+/* ---------- Home ---------- */
+.home-hero{text-align:center;padding:6px 20px 8px;}
+.mascot{font-size:76px;display:inline-block;animation:bob 2.6s ease-in-out infinite;filter:drop-shadow(0 8px 14px rgba(0,0,0,0.35));}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg);}50%{transform:translateY(-10px) rotate(3deg);}}
+.game-title{font-size:38px;font-weight:800;letter-spacing:0.5px;
+  background:linear-gradient(180deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-top:4px;line-height:1.05;
+}
+.game-sub{font-family:var(--font-d);font-size:17px;color:var(--yellow);margin-top:4px;font-weight:600;}
+.brand-line{font-size:12.5px;color:var(--paper-dim);margin-top:8px;font-weight:700;letter-spacing:0.3px;}
+.brand-line b{color:var(--cyan);}
+.footer-credit{text-align:center;font-size:11.5px;color:var(--paper-dim);padding:10px 20px 4px;opacity:0.8;}
+.speech{
+  background:var(--card);border-radius:18px;padding:12px 16px;
+  margin:14px auto 0;max-width:420px;font-size:15px;font-weight:700;
+  color:var(--paper);position:relative;
+}
+.menu-col{display:flex;flex-direction:column;gap:12px;padding:22px 20px 10px;}
+.big-btn{
+  font-family:var(--font-d);font-size:19px;font-weight:700;color:var(--ink);
+  padding:16px 20px;border-radius:18px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 5px 0 rgba(0,0,0,0.28);
+  transition:transform .08s;
+}
+.big-btn:active{transform:translateY(4px);box-shadow:0 1px 0 rgba(0,0,0,0.28);}
+.big-btn .emo{font-size:24px;}
+.btn-primary{background:linear-gradient(180deg,#FFE187,var(--yellow));}
+.btn-cyan{background:linear-gradient(180deg,#7FF0FA,var(--cyan));}
+.btn-violet{background:linear-gradient(180deg,#B4A3FF,var(--violet));color:var(--paper);}
+.btn-coral{background:linear-gradient(180deg,#FFA7BC,var(--coral));}
+
+/* ---------- Level map ---------- */
+.map-wrap{padding:10px 22px 20px;}
+.map-title{text-align:center;font-size:24px;margin:6px 0 18px;}
+.node{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border-radius:20px;padding:14px 16px;margin-bottom:14px;
+  box-shadow:0 4px 0 rgba(0,0,0,0.25);
+}
+.node.locked{opacity:0.5;filter:grayscale(0.4);}
+.node-circle{
+  width:56px;height:56px;border-radius:50%;flex:none;
+  display:flex;align-items:center;justify-content:center;font-size:26px;
+  background:linear-gradient(180deg,var(--violet),var(--violet-deep));
+  box-shadow:inset 0 -4px 0 rgba(0,0,0,0.2);
+}
+.node.done .node-circle{background:linear-gradient(180deg,#7FF3B0,var(--green));}
+.node-info{flex:1;}
+.node-info b{font-family:var(--font-d);font-size:16px;display:block;}
+.node-info span{font-size:12.5px;color:var(--paper-dim);}
+.node-stars{font-size:14px;color:var(--yellow);margin-top:3px;}
+.node-status{font-size:22px;}
+
+/* ---------- Question / play screens ---------- */
+.play-wrap{padding:14px 18px 20px;}
+.progress-track{height:12px;border-radius:999px;background:var(--card);overflow:hidden;margin:10px 0 4px;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--violet));border-radius:999px;transition:width .3s;}
+.hud-row{display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:14px;margin-bottom:6px;}
+.hearts span{margin-right:2px;}
+.timer-bar{height:8px;border-radius:999px;background:var(--card);overflow:hidden;margin:6px 0 14px;}
+.timer-fill{height:100%;background:linear-gradient(90deg,var(--yellow),var(--coral));border-radius:999px;}
+.q-card{
+  background:var(--card);border-radius:22px;padding:22px 18px;text-align:center;
+  box-shadow:0 6px 0 rgba(0,0,0,0.25);
+}
+.q-icon{font-size:52px;margin-bottom:10px;}
+.q-text{font-family:var(--font-d);font-size:19px;font-weight:600;line-height:1.3;}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:18px;}
+.opt-btn{
+  background:var(--navy2);color:var(--paper);font-size:15.5px;font-weight:700;
+  padding:14px 16px;border-radius:14px;text-align:left;
+  box-shadow:0 3px 0 rgba(0,0,0,0.25);border:2px solid transparent;
+}
+.opt-btn:active{transform:translateY(2px);}
+.opt-btn.correct{background:linear-gradient(180deg,#7FF3B0,var(--green));color:var(--ink);border-color:#2fae72;}
+.opt-btn.wrong{background:linear-gradient(180deg,#FFA7BC,var(--coral));color:var(--ink);border-color:#c23a5e;}
+.opt-btn.dim{opacity:0.5;}
+.explain-box{
+  margin-top:14px;background:var(--navy2);border-radius:14px;padding:12px 14px;
+  font-size:14px;text-align:left;font-weight:600;color:var(--paper-dim);
+}
+.next-btn{
+  margin-top:16px;width:100%;padding:15px;border-radius:16px;font-family:var(--font-d);
+  font-weight:700;font-size:17px;background:linear-gradient(180deg,#FFE187,var(--yellow));color:var(--ink);
+  box-shadow:0 5px 0 rgba(0,0,0,0.25);
+}
+.next-btn:active{transform:translateY(4px);box-shadow:none;}
+
+/* interactive task screen */
+.task-stage{
+  background:var(--card);border-radius:22px;padding:26px 18px;text-align:center;min-height:230px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;
+  box-shadow:0 6px 0 rgba(0,0,0,0.25);position:relative;overflow:hidden;
+}
+.task-target{
+  font-size:64px;user-select:none;cursor:pointer;transition:transform .12s;
+}
+.task-target:active{transform:scale(0.9);}
+.scroll-box{
+  height:140px;width:100%;overflow-y:auto;background:var(--navy2);border-radius:14px;padding:10px;
+  text-align:left;font-size:14px;color:var(--paper-dim);
+}
+.scroll-box .filler{padding:30px 0;text-align:center;color:var(--paper-dim);}
+.scroll-target{
+  margin-top:10px;padding:12px;border-radius:12px;background:var(--card-light);text-align:center;font-weight:800;
+}
+
+/* drag/sort game */
+.sort-zones{display:flex;gap:10px;width:100%;flex-wrap:wrap;justify-content:center;}
+.sort-zone{
+  flex:1;min-width:110px;background:var(--navy2);border:3px dashed #46508C;border-radius:16px;
+  padding:14px 8px;text-align:center;font-weight:800;font-size:13.5px;
+}
+.sort-zone.hover{border-color:var(--cyan);background:var(--card-light);}
+.sort-item{
+  font-size:44px;touch-action:none;user-select:none;cursor:grab;position:relative;z-index:5;
+}
+.sort-item.dragging{cursor:grabbing;filter:drop-shadow(0 8px 10px rgba(0,0,0,0.4));}
+.sort-label{font-size:13px;font-weight:800;margin-top:4px;color:var(--paper-dim);}
+
+/* results */
+.result-wrap{padding:26px 22px;text-align:center;}
+.rank-badge{font-size:64px;margin-bottom:6px;}
+.rank-name{font-family:var(--font-d);font-size:24px;color:var(--yellow);}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0;}
+.stat-box{background:var(--card);border-radius:16px;padding:14px;}
+.stat-box b{display:block;font-size:20px;font-family:var(--font-d);}
+.stat-box span{font-size:12px;color:var(--paper-dim);}
+.star-row{font-size:34px;margin:8px 0 4px;}
+
+/* learn cards */
+.learn-card{
+  background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px;
+}
+.learn-card h3{font-size:16px;color:var(--cyan);margin-bottom:6px;}
+.learn-card p{font-size:14px;color:var(--paper-dim);line-height:1.5;margin:0;}
+
+/* achievements */
+.ach-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px 18px;}
+.ach-card{
+  background:var(--card);border-radius:16px;padding:14px 10px;text-align:center;
+}
+.ach-card.locked{opacity:0.35;}
+.ach-emo{font-size:32px;}
+.ach-name{font-family:var(--font-d);font-size:13.5px;margin-top:4px;}
+.ach-desc{font-size:11px;color:var(--paper-dim);margin-top:2px;}
+
+/* toast + confetti */
+.toast{
+  position:fixed;top:14px;left:50%;transform:translateX(-50%);
+  background:var(--yellow);color:var(--ink);font-weight:800;padding:10px 18px;border-radius:999px;
+  font-size:14px;z-index:999;box-shadow:0 5px 12px rgba(0,0,0,0.3);
+  animation:toastin .25s ease-out;
+}
+@keyframes toastin{from{opacity:0;transform:translate(-50%,-14px);}to{opacity:1;transform:translate(-50%,0);}}
+.confetti-piece{position:fixed;top:-20px;width:9px;height:14px;z-index:998;border-radius:2px;pointer-events:none;}
+
+/* settings */
+.setting-row{
+  display:flex;justify-content:space-between;align-items:center;
+  background:var(--card);border-radius:14px;padding:14px 16px;margin-bottom:10px;font-weight:700;
+}
+.toggle{
+  width:52px;height:30px;border-radius:999px;background:var(--navy2);position:relative;flex:none;
+}
+.toggle.on{background:var(--green);}
+.toggle .knob{
+  position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:var(--paper);
+  transition:left .15s;
+}
+.toggle.on .knob{left:25px;}
+
+.back-row{display:flex;align-items:center;gap:10px;padding:14px 16px 0;}
+.back-row .lvl-title{font-family:var(--font-d);font-size:18px;}
+
+.center-note{text-align:center;color:var(--paper-dim);font-size:13px;padding:0 24px 10px;}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ===================== AUDIO ===================== */
+var AudioCtx = window.AudioContext || window.webkitAudioContext;
+var actx = null;
+function ensureAudio(){ if(!actx && AudioCtx){ try{ actx = new AudioCtx(); }catch(e){} } }
+function beep(freq, start, dur, type, vol){
+  if(S.muted || !actx) return;
+  var o = actx.createOscillator();
+  var g = actx.createGain();
+  o.type = type || 'sine';
+  o.frequency.value = freq;
+  g.gain.value = 0;
+  o.connect(g); g.connect(actx.destination);
+  var t0 = actx.currentTime + start;
+  g.gain.setValueAtTime(0, t0);
+  g.gain.linearRampToValueAtTime(vol || 0.18, t0 + 0.02);
+  g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+  o.start(t0); o.stop(t0 + dur + 0.02);
+}
+function sfxCorrect(){ ensureAudio(); beep(523,0,0.12,'triangle'); beep(784,0.1,0.18,'triangle'); }
+function sfxWrong(){ ensureAudio(); beep(180,0,0.22,'sawtooth',0.12); }
+function sfxLevel(){ ensureAudio(); [523,659,784,1047].forEach(function(f,i){ beep(f, i*0.09, 0.16,'triangle'); }); }
+function sfxAch(){ ensureAudio(); [659,880,1175].forEach(function(f,i){ beep(f, i*0.07, 0.2,'sine'); }); }
+function sfxTap(){ ensureAudio(); beep(400,0,0.05,'square',0.06); }
+
+/* ===================== STATE ===================== */
+var S = {
+  screen:'loading',
+  xp:0, coins:0,
+  completed:{}, // levelId -> true
+  levelStars:{}, // levelId -> 1-3
+  achievements:{}, // id -> true
+  muted:false,
+  lives:3,
+  session:null // current play session object
+};
+var STORAGE_KEY = 'progress';
+
+function packProgress(){
+  return JSON.stringify({xp:S.xp, coins:S.coins, completed:S.completed, levelStars:S.levelStars, achievements:S.achievements, muted:S.muted});
+}
+function saveProgress(){
+  var data = packProgress();
+  try{
+    if(window.storage && window.storage.set){
+      var r = window.storage.set(STORAGE_KEY, data, false);
+      if(r && r.catch) r.catch(function(){});
+      return;
+    }
+  }catch(e){}
+  try{ window.localStorage.setItem('computerquest_'+STORAGE_KEY, data); }catch(e){}
+}
+function applyProgress(raw){
+  if(!raw) return;
+  try{
+    var d = JSON.parse(raw);
+    S.xp = d.xp||0; S.coins = d.coins||0;
+    S.completed = d.completed||{}; S.levelStars = d.levelStars||{};
+    S.achievements = d.achievements||{}; S.muted = !!d.muted;
+  }catch(e){}
+}
+function loadProgress(){
+  try{
+    if(window.storage && window.storage.get){
+      return window.storage.get(STORAGE_KEY, false).then(function(res){
+        if(res && res.value) applyProgress(res.value);
+      }).catch(function(){});
+    }
+  }catch(e){}
+  try{ applyProgress(window.localStorage.getItem('computerquest_'+STORAGE_KEY)); }catch(e){}
+  return Promise.resolve();
+}
+
+/* ===================== DATA: LEVELS ===================== */
+var LEVELS = [
+  {id:1, name:'Computer Parts', emo:'🖥️', desc:'Learn the parts of a computer', mode:'mcq'},
+  {id:2, name:'Keyboard Master', emo:'⌨️', desc:'Keys & shortcuts, beat the clock', mode:'mcq', timed:12},
+  {id:3, name:'Mouse Master', emo:'🖱️', desc:'Click, drag & scroll challenges', mode:'tasks'},
+  {id:4, name:'Hardware vs Software', emo:'🧠', desc:'Sort items into the right group', mode:'sort'},
+  {id:5, name:'Memory & Storage', emo:'💾', desc:'RAM, ROM, HDD, SSD & more', mode:'mcq'},
+  {id:6, name:'Windows & Files', emo:'🪟', desc:'Desktop, folders & organizing', mode:'mcqsort'},
+  {id:7, name:'Final Challenge', emo:'🏆', desc:'20 mixed questions — go for it!', mode:'final', timed:15}
+];
+
+/* ---- Level 1 : Computer Parts ---- */
+var Q1 = [
+["🖥️","Which part shows pictures and words so you can see what the computer is doing?",["Monitor","Keyboard","Printer","Speakers"],0,"The monitor is the computer's screen — it displays everything you see."],
+["⌨️","Which part do you press to type letters and numbers?",["Mouse","Keyboard","Webcam","CPU"],1,"The keyboard has keys for letters, numbers and symbols."],
+["🖱️","Which part helps you point, click and select things on the screen?",["Printer","Mouse","RAM","Monitor"],1,"The mouse moves the pointer and lets you click on things."],
+["🧠","Which part is called the 'brain' of the computer because it does the thinking?",["CPU","Printer","Speakers","Mouse"],0,"CPU stands for Central Processing Unit — it processes instructions."],
+["🖨️","Which part turns your computer file into a paper copy?",["Webcam","Printer","RAM","Monitor"],1,"A printer prints your documents and pictures onto paper."],
+["🔊","Which part lets you hear music and sounds from the computer?",["Speakers","Keyboard","CPU","Hard Disk"],0,"Speakers turn digital sound into sound you can hear."],
+["📷","Which part takes video of you, often used for video calls?",["Webcam","Mouse","SSD","Printer"],0,"A webcam is a small camera built into or attached to a computer."],
+["⚡","Which part is short-term memory the computer uses while it's working?",["Hard Disk","RAM","Monitor","Printer"],1,"RAM (Random Access Memory) holds data only while the computer is on."],
+["💽","Which part stores your files even after you turn the computer off?",["RAM","Hard Disk","Speakers","Mouse"],1,"A Hard Disk stores files permanently, even without power."],
+["💾","Which storage part is faster than a Hard Disk and has no moving parts?",["SSD","Printer","Webcam","Monitor"],0,"An SSD (Solid State Drive) stores data on chips, so it's very fast."],
+["🖥️","A monitor is usually measured by its screen…",["size","weight","smell","sound"],0,"We measure monitors by their screen size, like 24 inches."],
+["⌨️","The keyboard is mainly used for…",["Listening to music","Typing text","Printing pages","Taking photos"],1,"You use the keyboard to type words and commands."],
+["🖱️","A computer mouse usually has how many main buttons?",["1","2","4","6"],1,"Most mice have a left button and a right button."],
+["🧠","CPU stands for…",["Central Processing Unit","Computer Power Unit","Central Print Unit","Central Play Unit"],0,"CPU = Central Processing Unit, the computer's brain."],
+["⚡","What happens to the information in RAM when you turn off the computer?",["It stays forever","It disappears","It prints itself","It becomes a folder"],1,"RAM is temporary memory, so its data disappears when power is off."],
+["💾","SSD stands for…",["Solid State Drive","Super Speed Disk","Small Storage Device","System Save Drive"],0,"SSD = Solid State Drive, a fast type of storage."]
+];
+
+/* ---- Level 2 : Keyboard Master ---- */
+var Q2 = [
+["⏎","Which key do you press to start a new line or confirm something?",["Enter","Space","Tab","Esc"],0,"Enter moves to a new line or confirms an action."],
+["␣","Which key adds a blank space between words?",["Backspace","Space","Shift","Alt"],1,"The Space bar is the long key that adds a space."],
+["⌫","Which key erases the letter right before the cursor?",["Backspace","Delete","Enter","Tab"],0,"Backspace deletes the character to the left of the cursor."],
+["⇧","Which key do you hold to type a CAPITAL letter?",["Ctrl","Shift","Alt","Esc"],1,"Holding Shift while typing a letter makes it a capital."],
+["✂️","Which shortcut CUTS the selected text?",["Ctrl + C","Ctrl + V","Ctrl + X","Ctrl + Z"],2,"Ctrl + X cuts (removes and copies) the selected item."],
+["📋","Which shortcut COPIES the selected text?",["Ctrl + C","Ctrl + V","Ctrl + X","Ctrl + S"],0,"Ctrl + C copies the selected text or item."],
+["📥","Which shortcut PASTES what you copied or cut?",["Ctrl + A","Ctrl + V","Ctrl + Z","Ctrl + S"],1,"Ctrl + V pastes the copied or cut item."],
+["↩️","Which shortcut UNDOES your last action?",["Ctrl + Z","Ctrl + Y","Ctrl + A","Ctrl + S"],0,"Ctrl + Z undoes the last thing you did."],
+["💾","Which shortcut SAVES your file?",["Ctrl + P","Ctrl + S","Ctrl + N","Ctrl + O"],1,"Ctrl + S saves the file you're working on."],
+["🔲","Which shortcut SELECTS ALL the text or items?",["Ctrl + A","Ctrl + B","Ctrl + S","Ctrl + Z"],0,"Ctrl + A selects everything in the document or folder."],
+["↹","Which key jumps you to the next box or field on a form?",["Esc","Tab","Alt","Shift"],1,"Tab moves the cursor to the next field or item."],
+["⎋","Which key closes a pop-up or cancels what you're doing?",["Esc","Enter","Ctrl","Tab"],0,"Esc (Escape) cancels or closes things."],
+["⌃","Which key do you usually hold together with letters to make shortcuts work?",["Ctrl","Space","Enter","Backspace"],0,"Ctrl (Control) is combined with letters for shortcuts like Ctrl+C."],
+["⎇","Which key helps you switch between open windows when held with Tab?",["Alt","Shift","Enter","Esc"],0,"Alt + Tab switches between open windows or apps."],
+["↷","On many computers, which shortcut REDOES something after you undid it?",["Ctrl + Y","Ctrl + Z","Ctrl + A","Ctrl + X"],0,"Ctrl + Y (or Ctrl+Shift+Z) redoes what you undid."],
+["␣","Which key is usually the biggest key on the whole keyboard?",["Space","Enter","Shift","Tab"],0,"The Space bar is the longest key, used all the time!"]
+];
+
+/* ---- Level 3 : Mouse Master (tasks + mcq) ---- */
+var T3 = [
+  {type:'click', q:'Give the star a single click!', emo:'⭐'},
+  {type:'dblclick', q:'Double-click the chest to open it!', emo:'🎁'},
+  {type:'rightclick', q:"Right-click the gear to open its menu! (On mobile, press and hold.)", emo:'⚙️'},
+  {type:'drag', q:'Drag the file into the folder!', item:{emo:'📄',label:'My File'}, zone:{emo:'📁',label:'Folder'}},
+  {type:'scroll', q:"Scroll all the way down to find the hidden button!"}
+];
+var Q3 = [
+["🖱️","Which click do you use to select something with ONE press?",["Single click","Double click","Right click","Scroll"],0,"A single click selects or presses something once."],
+["🖱️","Which click often opens a program, done by pressing twice fast?",["Single click","Double click","Right click","Drag"],1,"Double-clicking (two fast clicks) usually opens programs or files."],
+["🖱️","Which click opens a menu with extra options?",["Single click","Double click","Right click","Scroll"],2,"Right-clicking shows a menu with more choices."],
+["🖱️","What do you call moving an item by holding the button and pulling it?",["Scrolling","Drag and drop","Double click","Typing"],1,"Drag and drop moves items by holding and pulling them."],
+["🖱️","What do you do with the mouse wheel (or two fingers) to move up and down a page?",["Click","Drag","Scroll","Right click"],2,"Scrolling moves the page up or down so you can see more."]
+];
+
+/* ---- Level 4 : Hardware vs Software (sort) ---- */
+var SORT4 = [
+  {emo:'⌨️', label:'Keyboard', zone:'hw'},
+  {emo:'🖱️', label:'Mouse', zone:'hw'},
+  {emo:'🖥️', label:'Monitor', zone:'hw'},
+  {emo:'⚡', label:'RAM', zone:'hw'},
+  {emo:'💾', label:'SSD', zone:'hw'},
+  {emo:'🖨️', label:'Printer', zone:'hw'},
+  {emo:'📷', label:'Webcam', zone:'hw'},
+  {emo:'🪟', label:'Windows', zone:'sw'},
+  {emo:'📝', label:'MS Word', zone:'sw'},
+  {emo:'🎨', label:'Paint', zone:'sw'},
+  {emo:'🌐', label:'Chrome', zone:'sw'},
+  {emo:'🖌️', label:'Photoshop', zone:'sw'},
+  {emo:'📹', label:'Zoom', zone:'sw'},
+  {emo:'💽', label:'Hard Disk', zone:'hw'}
+];
+var ZONES4 = [{id:'hw', emo:'💻', label:'HARDWARE'},{id:'sw', emo:'🧠', label:'SOFTWARE'}];
+
+/* ---- Level 5 : Memory & Storage ---- */
+var Q5 = [
+["⚡","Which type of memory loses its data when the power turns off?",["RAM","ROM","HDD","USB"],0,"RAM is temporary — it needs power to keep its data."],
+["🔒","Which type of memory keeps its instructions even WITHOUT power?",["RAM","ROM","RAM stick","Cache"],1,"ROM (Read-Only Memory) keeps data permanently, even off."],
+["💽","Which storage device uses a spinning disk to store files?",["HDD","SSD","USB","RAM"],0,"An HDD (Hard Disk Drive) uses a spinning magnetic disk."],
+["💾","Which storage device has no moving parts and is much faster?",["HDD","SSD","Floppy Disk","CD"],1,"An SSD stores data on chips, so there's nothing to spin."],
+["🔑","Which small device plugs into a USB port to carry files around?",["USB flash drive","Monitor","Speaker","CPU"],0,"A USB flash drive is small, portable storage."],
+["🗂️","Which storage is often used inside phones and cameras to save photos?",["Memory Card","Monitor","Printer","Keyboard"],0,"Memory cards are small and used in phones, cameras, and more."],
+["🏎️","Which one is usually faster at loading and saving files?",["HDD","SSD"],1,"SSDs are faster than HDDs because they have no moving parts."],
+["📏","Which is bigger: 1 MB or 1 GB?",["1 MB","1 GB","They are the same","Neither"],1,"1 GB is about 1000 times bigger than 1 MB."],
+["📏","Which is bigger: 1 GB or 1 TB?",["1 GB","1 TB","They are the same","Neither"],1,"1 TB is about 1000 times bigger than 1 GB."],
+["🔤","KB is short for…",["Kilobyte","Kilobit","Key Board","Kilo Byte Box"],0,"KB stands for Kilobyte, a small unit of data."],
+["🔤","MB is short for…",["Megabyte","Mega Board","Memory Box","Mini Byte"],0,"MB stands for Megabyte."],
+["🔤","GB is short for…",["Gigabyte","Giga Board","Great Byte","Gaming Byte"],0,"GB stands for Gigabyte."],
+["🔤","TB is short for…",["Terabyte","Ten Byte","Tiny Byte","Transfer Byte"],0,"TB stands for Terabyte, a very large unit of data."],
+["🔑","A USB flash drive is mainly used to…",["Cool down the computer","Carry files between computers","Show pictures","Play sound"],1,"You use it to move files from one computer to another."],
+["⚡","RAM helps the computer…",["Store files forever","Work quickly with programs that are open","Print documents","Connect to Wi-Fi"],1,"RAM lets the computer quickly use programs and data right now."],
+["📦","Put these in the correct order, smallest to largest:",["KB → MB → GB → TB","TB → GB → MB → KB","MB → KB → TB → GB","GB → TB → KB → MB"],0,"From smallest to largest it goes KB, MB, GB, then TB."]
+];
+
+/* ---- Level 6 : Windows & Files (mcq + sort) ---- */
+var Q6 = [
+["🖥️","Where do you usually see icons for your favorite programs right on the main screen?",["Desktop","Recycle Bin","Taskbar","File Explorer"],0,"The Desktop is the main screen with icons and shortcuts."],
+["▶️","Which button/menu do you click to find and open programs?",["Start Menu","Recycle Bin","Taskbar","Folder"],0,"The Start Menu lists your programs and settings."],
+["📊","Which bar at the bottom of the screen shows open programs and the clock?",["Taskbar","Desktop","File","Folder"],0,"The Taskbar sits at the bottom and shows open apps."],
+["📄","What do you call a single document, picture or song saved on a computer?",["File","Folder","Desktop","Taskbar"],0,"A file is one saved item, like a document or photo."],
+["📁","What do you call a container that holds and organizes files?",["File","Folder","Taskbar","Start Menu"],1,"A folder holds and organizes files together."],
+["🗑️","Where do deleted files go before they are permanently removed?",["Recycle Bin","Desktop","File Explorer","Taskbar"],0,"The Recycle Bin holds deleted files until you empty it."],
+["🔎","Which tool helps you browse through your folders and files?",["File Explorer","Start Menu","Taskbar","Recycle Bin"],0,"File Explorer lets you look through your folders and files."],
+["🔎","You want to find an old photo from last year. Which tool helps you look through your folders?",["File Explorer","Recycle Bin","Printer","Keyboard"],0,"File Explorer is used to browse and search for files."],
+["📁","Which of these is a FOLDER, not a file?",["Pictures","Homework.docx","Song.mp3","Photo.jpg"],0,"Pictures is a folder name that can hold many files."],
+["📄","Which of these is a FILE, not a folder?",["Homework.docx","School","Games","Documents"],0,"Homework.docx is a single file (a document)."]
+];
+var SORT6 = [
+  {emo:'📝', label:'Homework.docx', zone:'school'},
+  {emo:'📐', label:'MathNotes.pdf', zone:'school'},
+  {emo:'📋', label:'ReportCard.docx', zone:'school'},
+  {emo:'🏖️', label:'Vacation.jpg', zone:'pics'},
+  {emo:'🎂', label:'Birthday.png', zone:'pics'},
+  {emo:'🖼️', label:'Wallpaper.png', zone:'pics'},
+  {emo:'⛏️', label:'Minecraft.exe', zone:'games'},
+  {emo:'♟️', label:'ChessGame.exe', zone:'games'},
+  {emo:'✍️', label:'EssayDraft.docx', zone:'docs'},
+  {emo:'🧾', label:'Invoice.pdf', zone:'docs'}
+];
+var ZONES6 = [
+  {id:'school', emo:'📁', label:'School'},
+  {id:'pics', emo:'📁', label:'Pictures'},
+  {id:'games', emo:'📁', label:'Games'},
+  {id:'docs', emo:'📁', label:'Documents'}
+];
+
+/* ---- Learn content ---- */
+var LEARN = {
+  1:[["What is a Monitor?","The monitor is the computer's screen. It shows pictures, videos and words so you can see what's happening."],
+     ["What is a CPU?","The CPU is the 'brain' of the computer. It processes instructions super fast so programs can run."],
+     ["What is RAM?","RAM is temporary memory that helps your computer work with programs and data right now. It clears when the power turns off."],
+     ["What is a Hard Disk / SSD?","These store your files permanently — photos, games, documents — even after you turn the computer off."]],
+  2:[["Why do we use shortcuts?","Keyboard shortcuts like Ctrl+C and Ctrl+V help you copy, paste, undo and save super quickly, without using the mouse."],
+     ["Modifier keys","Ctrl, Shift and Alt are special keys. On their own they don't do much, but combined with other keys they create powerful shortcuts."]],
+  3:[["Mouse actions","A single click selects. A double-click opens. A right-click shows a menu. Dragging moves things. Scrolling moves the page."]],
+  4:[["Hardware","Hardware is anything you can physically touch — like a keyboard, mouse, monitor or printer."],
+     ["Software","Software is a program or app that runs on the hardware — like Windows, Chrome or Paint. You can't touch software!"]],
+  5:[["RAM vs ROM","RAM is temporary memory used while working. ROM keeps important instructions permanently, even without power."],
+     ["HDD vs SSD","An HDD spins a disk to store data. An SSD uses chips with no moving parts, so it's faster."],
+     ["Data sizes","Data is measured in KB (Kilobytes), MB (Megabytes), GB (Gigabytes) and TB (Terabytes) — each one is about 1000 times bigger than the last!"]],
+  6:[["Desktop & Taskbar","The Desktop is your main screen with icons. The Taskbar at the bottom shows open programs and the clock."],
+     ["Files & Folders","A file is a single item like a photo or document. A folder holds and organizes many files together."],
+     ["Recycle Bin","When you delete a file, it goes to the Recycle Bin first, so you can still get it back if you change your mind."]],
+  7:[["Ready for the challenge!","Review everything you've learned: parts, keys, mouse actions, hardware vs software, memory, and files. You've got this!"]]
+};
+
+/* ---- Achievements ---- */
+var ACHIEVEMENTS = [
+  {id:'a1', emo:'🏅', name:'First Step', desc:'Complete Level 1', check:function(){return S.completed[1];}},
+  {id:'a2', emo:'⌨️', name:'Keyboard Master', desc:'Complete the Keyboard Level', check:function(){return S.completed[2];}},
+  {id:'a3', emo:'🖱️', name:'Mouse Master', desc:'Complete the Mouse Level', check:function(){return S.completed[3];}},
+  {id:'a4', emo:'🔌', name:'Hardware Hero', desc:'Complete Hardware vs Software', check:function(){return S.completed[4];}},
+  {id:'a5', emo:'💾', name:'Storage Expert', desc:'Complete the Storage Level', check:function(){return S.completed[5];}},
+  {id:'a6', emo:'🪟', name:'Windows Explorer', desc:'Complete the Windows Level', check:function(){return S.completed[6];}},
+  {id:'a7', emo:'🔥', name:'Perfect Score', desc:'Get 100% on any level', check:function(){return S._perfectHit;}},
+  {id:'a8', emo:'👑', name:'Computer Master', desc:'Complete the entire game', check:function(){return S.completed[7];}}
+];
+
+/* ===================== HELPERS ===================== */
+function $(sel){ return document.querySelector(sel); }
+function el(html){ var d=document.createElement('div'); d.innerHTML=html; return d.firstElementChild; }
+function shuffle(arr){ arr = arr.slice(); for(var i=arr.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=arr[i]; arr[i]=arr[j]; arr[j]=t; } return arr; }
+function pick(arr,n){ return shuffle(arr).slice(0,n); }
+function levelById(id){ for(var i=0;i<LEVELS.length;i++){ if(LEVELS[i].id===id) return LEVELS[i]; } return null; }
+function isUnlocked(id){ if(id===1) return true; return !!S.completed[id-1] || !!S.completed[id]; }
+function starsFor(pct){ if(pct>=100) return 3; if(pct>=70) return 2; if(pct>=40) return 1; return 0; }
+function rankFor(pct){
+  if(pct>=95) return {emo:'🏆', name:'COMPUTER MASTER'};
+  if(pct>=80) return {emo:'⭐', name:'Computer Expert'};
+  if(pct>=60) return {emo:'💻', name:'Computer Student'};
+  if(pct>=40) return {emo:'🔍', name:'Computer Explorer'};
+  return {emo:'🐣', name:'Beginner'};
+}
+function toast(msg){
+  var t = el('<div class="toast">'+msg+'</div>');
+  document.body.appendChild(t);
+  setTimeout(function(){ t.remove(); }, 2200);
+}
+function confettiBurst(){
+  var colors = ['#FFD75E','#42DCEE','#7C5CFC','#FF6F91','#5EE6A0'];
+  for(var i=0;i<26;i++){
+    (function(i){
+      var p = document.createElement('div');
+      p.className='confetti-piece';
+      p.style.left = (Math.random()*100)+'vw';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.transform = 'rotate('+Math.floor(Math.random()*360)+'deg)';
+      document.body.appendChild(p);
+      var dur = 1400+Math.random()*900;
+      p.animate([
+        {transform:p.style.transform+' translateY(0)', opacity:1},
+        {transform:p.style.transform+' translateY(100vh)', opacity:0.9}
+      ], {duration:dur, easing:'ease-in'});
+      setTimeout(function(){ p.remove(); }, dur+50);
+    })(i);
+  }
+}
+function checkAchievements(){
+  var newly = [];
+  ACHIEVEMENTS.forEach(function(a){
+    if(!S.achievements[a.id] && a.check()){
+      S.achievements[a.id] = true;
+      newly.push(a);
+    }
+  });
+  if(newly.length){
+    saveProgress();
+    newly.forEach(function(a, i){
+      setTimeout(function(){
+        sfxAch();
+        toast(a.emo+' Achievement unlocked: '+a.name+'!');
+      }, i*700);
+    });
+  }
+}
+
+/* ===================== RENDER: SHELL ===================== */
+function topBar(showBack, backLabel){
+  var muteIcon = S.muted ? '🔇' : '🔊';
+  return '<div class="topbar">'+
+    (showBack ? '<button class="icon-btn" data-action="go-home">🏠</button>' :
+      '<div class="stat-row">'+
+        '<div class="stat-pill">✨ '+S.xp+'</div>'+
+        '<div class="stat-pill">🪙 '+S.coins+'</div>'+
+      '</div>')+
+    '<button class="icon-btn" data-action="toggle-mute">'+muteIcon+'</button>'+
+  '</div>';
+}
+
+function render(){
+  var app = $('#app');
+  var html = '';
+  if(S.screen==='loading'){
+    html = renderLoading();
+  } else if(S.screen==='home'){
+    html = renderHome();
+  } else if(S.screen==='levels'){
+    html = renderLevels();
+  } else if(S.screen==='learn'){
+    html = renderLearnHome();
+  } else if(S.screen==='learn-level'){
+    html = renderLearnLevel(S._learnLevel);
+  } else if(S.screen==='achievements'){
+    html = renderAchievements();
+  } else if(S.screen==='settings'){
+    html = renderSettings();
+  } else if(S.screen==='play'){
+    html = renderPlay();
+  } else if(S.screen==='level-result'){
+    html = renderLevelResult();
+  } else if(S.screen==='game-over'){
+    html = renderGameOver();
+  }
+  app.innerHTML = html;
+  afterRender();
+}
+
+function renderLoading(){
+  return '<div style="min-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">'+
+    '<div class="mascot">🤖</div>'+
+    '<div style="font-family:var(--font-d);font-size:18px;color:var(--paper-dim);">Loading Computer Quest…</div>'+
+    '<div style="font-size:12px;color:var(--paper-dim);opacity:0.8;">Rah-e-Manzil IT Skill Training Centre</div>'+
+  '</div>';
+}
+
+/* ===================== HOME ===================== */
+function renderHome(){
+  var linesByCompletion = Object.keys(S.completed).length;
+  var speechText = linesByCompletion===0
+    ? "Hi! I'm Byte. Let's learn about computers together — tap Start Game!"
+    : "Welcome back! Ready to level up your computer skills?";
+  return topBar(false) +
+    '<div class="home-hero">'+
+      '<div class="mascot">🤖</div>'+
+      '<div class="game-title">COMPUTER QUEST</div>'+
+      '<div class="game-sub">Become a Computer Master!</div>'+
+      '<div class="brand-line">Presented by <b>Rah-e-Manzil</b> — IT Skill Training Centre</div>'+
+      '<div class="speech">'+speechText+'</div>'+
+    '</div>'+
+    '<div class="menu-col">'+
+      '<button class="big-btn btn-primary" data-action="go-levels"><span class="emo">▶️</span> Start Game</button>'+
+      '<button class="big-btn btn-cyan" data-action="go-learn"><span class="emo">📚</span> Learn</button>'+
+      '<button class="big-btn btn-violet" data-action="go-achievements"><span class="emo">🏆</span> Achievements</button>'+
+      '<button class="big-btn btn-coral" data-action="go-settings"><span class="emo">⚙️</span> Settings</button>'+
+    '</div>'+
+    '<div class="footer-credit">🖥️ Rah-e-Manzil IT Skill Training Centre — learn today, work from anywhere tomorrow.</div>';
+}
+
+/* ===================== LEVEL MAP ===================== */
+function renderLevels(){
+  var rows = LEVELS.map(function(lv){
+    var unlocked = isUnlocked(lv.id);
+    var done = !!S.completed[lv.id];
+    var stars = S.levelStars[lv.id]||0;
+    var starStr = done ? ('⭐'.repeat(stars) + '☆'.repeat(3-stars)) : '';
+    return '<div class="node '+(unlocked?'':'locked')+' '+(done?'done':'')+'" data-action="'+(unlocked?'start-level':'noop')+'" data-lvl="'+lv.id+'">'+
+      '<div class="node-circle">'+lv.emo+'</div>'+
+      '<div class="node-info"><b>'+lv.id+'. '+lv.name+'</b><span>'+lv.desc+'</span>'+
+        (starStr?'<div class="node-stars">'+starStr+'</div>':'')+
+      '</div>'+
+      '<div class="node-status">'+(done?'✅':(unlocked?'🔓':'🔒'))+'</div>'+
+    '</div>';
+  }).join('');
+  return topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="go-home">←</button><div class="lvl-title">Choose a Level</div></div>'+
+    '<div class="map-wrap">'+rows+'</div>';
+}
+
+/* ===================== LEARN ===================== */
+function renderLearnHome(){
+  var rows = LEVELS.filter(function(l){return l.id<=7;}).map(function(lv){
+    return '<div class="node" data-action="open-learn" data-lvl="'+lv.id+'">'+
+      '<div class="node-circle">'+lv.emo+'</div>'+
+      '<div class="node-info"><b>'+lv.name+'</b><span>Tap to read about this topic</span></div>'+
+      '<div class="node-status">📖</div>'+
+    '</div>';
+  }).join('');
+  return topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="go-home">←</button><div class="lvl-title">📚 Learn</div></div>'+
+    '<div class="map-wrap">'+rows+'</div>';
+}
+function renderLearnLevel(id){
+  var lv = levelById(id);
+  var cards = (LEARN[id]||[]).map(function(c){
+    return '<div class="learn-card"><h3>'+c[0]+'</h3><p>'+c[1]+'</p></div>';
+  }).join('');
+  return topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="go-learn">←</button><div class="lvl-title">'+lv.emo+' '+lv.name+'</div></div>'+
+    '<div class="map-wrap">'+cards+
+    '<button class="big-btn btn-primary" data-action="start-level" data-lvl="'+id+'" style="margin-top:6px;">'+
+      '<span class="emo">▶️</span> Play This Level</button>'+
+    '</div>';
+}
+
+/* ===================== ACHIEVEMENTS ===================== */
+function renderAchievements(){
+  var cards = ACHIEVEMENTS.map(function(a){
+    var got = !!S.achievements[a.id];
+    return '<div class="ach-card '+(got?'':'locked')+'">'+
+      '<div class="ach-emo">'+a.emo+'</div>'+
+      '<div class="ach-name">'+a.name+'</div>'+
+      '<div class="ach-desc">'+a.desc+'</div>'+
+    '</div>';
+  }).join('');
+  return topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="go-home">←</button><div class="lvl-title">🏆 Achievements</div></div>'+
+    '<div class="ach-grid">'+cards+'</div>';
+}
+
+/* ===================== SETTINGS ===================== */
+function renderSettings(){
+  return topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="go-home">←</button><div class="lvl-title">⚙️ Settings</div></div>'+
+    '<div class="map-wrap">'+
+      '<div class="setting-row">Sound Effects<div class="toggle '+(S.muted?'':'on')+'" data-action="toggle-mute"><div class="knob"></div></div></div>'+
+      '<div class="center-note">Your progress, XP and coins are saved automatically — no login needed. Reset below if you want a fresh start.</div>'+
+      '<button class="big-btn btn-coral" data-action="reset-progress" style="margin-top:8px;"><span class="emo">🔄</span> Reset Progress</button>'+
+    '</div>';
+}
+
+/* ===================== PLAY SESSION SETUP ===================== */
+function startLevel(id){
+  var lv = levelById(id);
+  S.lives = 3;
+  var sess = {level:lv, idx:0, correct:0, wrong:0, score:0, total:0, items:null, mode:lv.mode};
+
+  if(lv.mode==='mcq'){
+    var pool = id===1?Q1: id===2?Q2: id===5?Q5: Q6;
+    sess.items = shuffle(pool);
+    sess.total = sess.items.length;
+  } else if(lv.mode==='tasks'){
+    sess.items = shuffle(T3.concat(Q3.map(function(q){return {type:'mcq', data:q};})));
+    sess.total = sess.items.length;
+  } else if(lv.mode==='sort'){
+    sess.items = shuffle(SORT4);
+    sess.zones = ZONES4;
+    sess.total = sess.items.length;
+  } else if(lv.mode==='mcqsort'){
+    sess.items = shuffle(Q6.map(function(q){return {kind:'mcq', data:q};}).concat(SORT6.map(function(s){return {kind:'sort', data:s};})));
+    sess.zones = ZONES6;
+    sess.total = sess.items.length;
+  } else if(lv.mode==='final'){
+    var all = Q1.concat(Q2).concat(Q3).concat(Q5).concat(Q6).concat(SORT4.map(function(s){
+      return ["🔎","Is a "+s.label+" hardware or software?", s.zone==='hw'?["Hardware","Software"]:["Software","Hardware"], 0, s.zone==='hw' ? (s.label+" is hardware — something you can touch.") : (s.label+" is software — a program you can't touch.")];
+    }));
+    sess.items = pick(all, 20);
+    sess.total = sess.items.length;
+  }
+  S.session = sess;
+  S.screen = 'play';
+  render();
+}
+
+/* ===================== PLAY RENDER (dispatch by mode) ===================== */
+function renderPlay(){
+  var sess = S.session;
+  var lv = sess.level;
+  var pct = Math.round((sess.idx/sess.total)*100);
+  var hearts = '❤️'.repeat(S.lives) + '🖤'.repeat(3-S.lives);
+  var head = topBar(true) +
+    '<div class="back-row"><button class="icon-btn" data-action="quit-level">✕</button><div class="lvl-title">'+lv.emo+' '+lv.name+'</div></div>'+
+    '<div class="play-wrap">'+
+      '<div class="hud-row"><span>Question '+(sess.idx+1)+' / '+sess.total+'</span><span class="hearts">'+hearts+'</span></div>'+
+      '<div class="progress-track"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
+
+  if(sess.idx>=sess.total){
+    return head + '</div>';
+  }
+
+  var item = sess.items[sess.idx];
+  var body = '';
+  if(lv.mode==='mcq' || lv.mode==='final'){
+    body = renderMCQ(item, lv.timed);
+  } else if(lv.mode==='tasks'){
+    if(item.type==='mcq'){ body = renderMCQ(item.data, null); }
+    else { body = renderTask(item); }
+  } else if(lv.mode==='sort'){
+    body = renderSortStage(sess);
+  } else if(lv.mode==='mcqsort'){
+    if(item.kind==='mcq'){ body = renderMCQ(item.data, null); }
+    else { body = renderSortSingle(sess); }
+  }
+  return head + body + '</div>';
+}
+
+/* ---- MCQ block ---- */
+var mcqTimerId = null;
+function renderMCQ(data, timed){
+  var icon=data[0], q=data[1], opts=data[2], correct=data[3], explain=data[4];
+  var optHtml = opts.map(function(o,i){
+    return '<button class="opt-btn" data-action="answer-mcq" data-idx="'+i+'">'+o+'</button>';
+  }).join('');
+  var timerHtml = timed ? '<div class="timer-bar"><div class="timer-fill" id="timerFill" style="width:100%"></div></div>' : '';
+  window._mcqCorrect = correct;
+  window._mcqExplain = explain;
+  return '<div class="q-card"><div class="q-icon">'+icon+'</div><div class="q-text">'+q+'</div></div>'+
+    timerHtml+
+    '<div class="opts" id="optsWrap">'+optHtml+'</div>';
+}
+
+/* ---- Task block (level 3 interactive) ---- */
+function renderTask(t){
+  var stage = '';
+  if(t.type==='click'){
+    stage = '<div class="task-target" id="taskTarget">'+t.emo+'</div>';
+  } else if(t.type==='dblclick'){
+    stage = '<div class="task-target" id="taskTarget">'+t.emo+'</div>';
+  } else if(t.type==='rightclick'){
+    stage = '<div class="task-target" id="taskTarget">'+t.emo+'</div>';
+  } else if(t.type==='drag'){
+    stage = '<div style="width:100%;display:flex;flex-direction:column;align-items:center;gap:18px;">'+
+      '<div class="sort-item" id="dragItem">'+t.item.emo+'<div class="sort-label">'+t.item.label+'</div></div>'+
+      '<div class="sort-zone" id="dropZone" style="max-width:160px;">'+t.zone.emo+'<div class="sort-label">'+t.zone.label+'</div></div>'+
+    '</div>';
+  } else if(t.type==='scroll'){
+    var filler = '';
+    for(var i=0;i<8;i++){ filler += '<div class="filler">keep scrolling… 👇</div>'; }
+    stage = '<div style="width:100%;"><div class="scroll-box" id="scrollBox">'+filler+
+      '<div class="scroll-target" id="scrollTarget" data-action="task-success">🎉 Tap here!</div></div></div>';
+  }
+  return '<div class="task-stage" id="taskStage"><div class="q-text">'+t.q+'</div>'+stage+'</div>';
+}
+
+/* ---- Sort block (level 4, whole game per idx step shows ONE item) ---- */
+function renderSortStage(sess){
+  var item = sess.items[sess.idx];
+  var zonesHtml = sess.zones.map(function(z){
+    return '<div class="sort-zone" data-zone="'+z.id+'" id="zone-'+z.id+'">'+z.emo+'<br>'+z.label+'</div>';
+  }).join('');
+  return '<div class="task-stage" id="taskStage"><div class="q-text">Drag (or tap) into the correct group:</div>'+
+    '<div class="sort-item" id="dragItem" data-correct="'+item.zone+'">'+item.emo+'<div class="sort-label">'+item.label+'</div></div>'+
+    '<div class="sort-zones">'+zonesHtml+'</div>'+
+  '</div>';
+}
+function renderSortSingle(sess){
+  var wrap = sess.items[sess.idx];
+  var item = wrap.data;
+  var zonesHtml = sess.zones.map(function(z){
+    return '<div class="sort-zone" data-zone="'+z.id+'" id="zone-'+z.id+'">'+z.emo+'<br>'+z.label+'</div>';
+  }).join('');
+  return '<div class="task-stage" id="taskStage"><div class="q-text">Which folder does this belong in?</div>'+
+    '<div class="sort-item" id="dragItem" data-correct="'+item.zone+'">'+item.emo+'<div class="sort-label">'+item.label+'</div></div>'+
+    '<div class="sort-zones">'+zonesHtml+'</div>'+
+  '</div>';
+}
+
+/* ===================== AFTER RENDER: attach dynamic listeners ===================== */
+function afterRender(){
+  if(mcqTimerId){ clearInterval(mcqTimerId); mcqTimerId=null; }
+  if(S.screen!=='play') return;
+  var sess = S.session;
+  if(!sess || sess.idx>=sess.total){
+    if(sess) finishSession();
+    return;
+  }
+  var lv = sess.level;
+  var item = sess.items[sess.idx];
+
+  var isMcqNow = (lv.mode==='mcq' || lv.mode==='final') ||
+    (lv.mode==='tasks' && item.type==='mcq') ||
+    (lv.mode==='mcqsort' && item.kind==='mcq');
+
+  if(isMcqNow){
+    var timed = (lv.mode==='mcq' || lv.mode==='final') ? lv.timed : null;
+    if(timed){
+      var timeLeft = timed;
+      var fill = document.getElementById('timerFill');
+      mcqTimerId = setInterval(function(){
+        timeLeft -= 0.1;
+        if(fill) fill.style.width = Math.max(0,(timeLeft/timed*100))+'%';
+        if(timeLeft<=0){
+          clearInterval(mcqTimerId); mcqTimerId=null;
+          answerMCQ(-1); // time's up = wrong
+        }
+      }, 100);
+    }
+    return;
+  }
+
+  // task-based (level 3 non-mcq)
+  if(lv.mode==='tasks'){
+    attachTaskListeners(item);
+    return;
+  }
+  // sort games
+  if(lv.mode==='sort'){
+    attachDragListeners(document.getElementById('dragItem'), sess.zones);
+  } else if(lv.mode==='mcqsort' && item.kind==='sort'){
+    attachDragListeners(document.getElementById('dragItem'), sess.zones);
+  }
+}
+
+function attachTaskListeners(t){
+  var target = document.getElementById('taskTarget');
+  if(t.type==='click' && target){
+    target.addEventListener('click', function(){ taskSuccess(); });
+  } else if(t.type==='dblclick' && target){
+    var clicks=0, timer=null;
+    target.addEventListener('click', function(){
+      clicks++;
+      if(clicks===1){ timer=setTimeout(function(){clicks=0;},380); }
+      else { clearTimeout(timer); clicks=0; taskSuccess(); }
+    });
+  } else if(t.type==='rightclick' && target){
+    target.addEventListener('contextmenu', function(e){ e.preventDefault(); taskSuccess(); });
+    var pressTimer=null;
+    target.addEventListener('touchstart', function(){ pressTimer=setTimeout(function(){ taskSuccess(); }, 550); });
+    target.addEventListener('touchend', function(){ clearTimeout(pressTimer); });
+  } else if(t.type==='drag'){
+    var item = document.getElementById('dragItem');
+    var zone = document.getElementById('dropZone');
+    makeDraggable(item, [{el:zone, id:'ok'}], function(hitId){ if(hitId==='ok'){ taskSuccess(); } else { taskFail(); } });
+  } else if(t.type==='scroll'){
+    var box = document.getElementById('scrollBox');
+    box.addEventListener('scroll', function(){
+      if(box.scrollTop + box.clientHeight >= box.scrollHeight - 6){
+        var btn = document.getElementById('scrollTarget');
+        if(btn){ btn.style.background = 'var(--green)'; btn.style.color='var(--ink)'; }
+      }
+    });
+  }
+}
+function taskSuccess(){
+  sfxCorrect();
+  S.session.correct++; S.session.score += 10;
+  advanceItem();
+}
+function taskFail(){
+  sfxWrong();
+  S.session.wrong++; loseLife();
+  advanceItem();
+}
+
+/* ---- generic drag engine (pointer events) ---- */
+function makeDraggable(itemEl, zoneTargets, onDrop){
+  if(!itemEl) return;
+  var dragging=false, offX=0, offY=0, startX=0, startY=0;
+  var origParent = itemEl.parentNode;
+  itemEl.style.position='relative';
+  function pointerDown(e){
+    dragging=true;
+    itemEl.classList.add('dragging');
+    itemEl.setPointerCapture && itemEl.setPointerCapture(e.pointerId);
+    var pt = getPoint(e);
+    startX=pt.x; startY=pt.y;
+  }
+  function pointerMove(e){
+    if(!dragging) return;
+    var pt = getPoint(e);
+    var dx = pt.x-startX, dy=pt.y-startY;
+    itemEl.style.transform = 'translate('+dx+'px,'+dy+'px)';
+    // highlight zone under pointer
+    zoneTargets.forEach(function(z){
+      var r = z.el.getBoundingClientRect();
+      var over = pt.x>=r.left && pt.x<=r.right && pt.y>=r.top && pt.y<=r.bottom;
+      z.el.classList.toggle('hover', over);
+    });
+  }
+  function pointerUp(e){
+    if(!dragging) return;
+    dragging=false;
+    itemEl.classList.remove('dragging');
+    var pt = getPoint(e);
+    var hitId = null;
+    zoneTargets.forEach(function(z){
+      var r = z.el.getBoundingClientRect();
+      z.el.classList.remove('hover');
+      if(pt.x>=r.left && pt.x<=r.right && pt.y>=r.top && pt.y<=r.bottom){ hitId=z.id; }
+    });
+    itemEl.style.transform='';
+    if(hitId){ onDrop(hitId); }
+  }
+  function getPoint(e){
+    if(e.touches && e.touches[0]) return {x:e.touches[0].clientX,y:e.touches[0].clientY};
+    if(e.changedTouches && e.changedTouches[0]) return {x:e.changedTouches[0].clientX,y:e.changedTouches[0].clientY};
+    return {x:e.clientX,y:e.clientY};
+  }
+  itemEl.addEventListener('pointerdown', pointerDown);
+  window.addEventListener('pointermove', pointerMove);
+  window.addEventListener('pointerup', pointerUp);
+  // tap-to-select fallback: tap item then tap zone
+  itemEl.addEventListener('click', function(){
+    itemEl.classList.toggle('selected-tap');
+    itemEl.style.outline = itemEl.classList.contains('selected-tap') ? '3px solid var(--cyan)' : '';
+  });
+  zoneTargets.forEach(function(z){
+    z.el.addEventListener('click', function(){
+      if(itemEl.classList.contains('selected-tap')){
+        onDrop(z.id);
+      }
+    });
+  });
+}
+function attachDragListeners(itemEl, zones){
+  if(!itemEl) return;
+  var correct = itemEl.getAttribute('data-correct');
+  var zoneTargets = zones.map(function(z){ return {el:document.getElementById('zone-'+z.id), id:z.id}; });
+  makeDraggable(itemEl, zoneTargets, function(hitId){
+    if(hitId===correct){ sfxCorrect(); S.session.correct++; S.session.score+=10; }
+    else { sfxWrong(); S.session.wrong++; loseLife(); }
+    advanceItem();
+  });
+}
+
+/* ===================== ANSWER HANDLING ===================== */
+document.addEventListener('click', function(e){
+  var t = e.target.closest('[data-action]');
+  if(!t) return;
+  var action = t.dataset.action;
+  sfxTap();
+  handleAction(action, t);
+});
+
+function handleAction(action, t){
+  if(action==='go-home'){ S.screen='home'; S.session=null; render(); }
+  else if(action==='go-levels'){ S.screen='levels'; render(); }
+  else if(action==='go-learn'){ S.screen='learn'; render(); }
+  else if(action==='open-learn'){ S._learnLevel = parseInt(t.dataset.lvl,10); S.screen='learn-level'; render(); }
+  else if(action==='go-achievements'){ S.screen='achievements'; render(); }
+  else if(action==='go-settings'){ S.screen='settings'; render(); }
+  else if(action==='toggle-mute'){ S.muted=!S.muted; saveProgress(); render(); }
+  else if(action==='reset-progress'){
+    if(confirm('Reset all progress, XP, coins and achievements?')){
+      S.xp=0; S.coins=0; S.completed={}; S.levelStars={}; S.achievements={};
+      saveProgress(); toast('Progress reset!'); render();
+    }
+  }
+  else if(action==='start-level'){ ensureAudio(); startLevel(parseInt(t.dataset.lvl,10)); }
+  else if(action==='quit-level'){ S.screen='levels'; S.session=null; render(); }
+  else if(action==='answer-mcq'){ answerMCQ(parseInt(t.dataset.idx,10)); }
+  else if(action==='next-item'){ advanceItem(); }
+  else if(action==='task-success'){ taskSuccess(); }
+  else if(action==='result-continue'){ resultContinue(); }
+  else if(action==='result-retry'){ startLevel(S._lastLevelId); }
+  else if(action==='go-final-if-ready'){ startLevel(7); }
+  else if(action==='noop'){ toast('🔒 Finish the level before this one to unlock it!'); }
+}
+
+function answerMCQ(idx){
+  if(mcqTimerId){ clearInterval(mcqTimerId); mcqTimerId=null; }
+  var buttons = document.querySelectorAll('#optsWrap .opt-btn');
+  var correct = window._mcqCorrect;
+  buttons.forEach(function(b,i){
+    b.classList.add('dim');
+    if(i===correct) b.classList.add('correct');
+    if(i===idx && idx!==correct) b.classList.add('wrong');
+  });
+  var ok = idx===correct;
+  if(ok){ sfxCorrect(); S.session.correct++; S.session.score+=10; }
+  else { sfxWrong(); S.session.wrong++; loseLife(); }
+  var explainBox = el('<div class="explain-box">💡 '+window._mcqExplain+'</div>');
+  var wrap = document.getElementById('optsWrap');
+  wrap.parentNode.insertBefore(explainBox, wrap.nextSibling);
+  var nextBtn = el('<button class="next-btn" data-action="next-item">'+(ok?'Great! Continue ➜':'Got it — Continue ➜')+'</button>');
+  explainBox.parentNode.insertBefore(nextBtn, explainBox.nextSibling);
+}
+
+function loseLife(){
+  S.lives--;
+  if(S.lives<=0){
+    setTimeout(function(){ S.screen='game-over'; render(); }, 450);
+  }
+}
+
+function advanceItem(){
+  if(S.screen==='game-over') return;
+  if(S.lives<=0) return;
+  S.session.idx++;
+  render();
+}
+
+/* ===================== SESSION FINISH ===================== */
+function finishSession(){
+  var sess = S.session;
+  var pct = sess.total ? Math.round((sess.correct/sess.total)*100) : 0;
+  var stars = starsFor(pct);
+  var xpGain = 20 + sess.correct*5;
+  var coinGain = 10 + sess.correct*2;
+  S.xp += xpGain; S.coins += coinGain;
+  S.completed[sess.level.id] = true;
+  var prevStars = S.levelStars[sess.level.id]||0;
+  S.levelStars[sess.level.id] = Math.max(prevStars, stars);
+  if(pct>=100) S._perfectHit = true;
+  S._lastLevelId = sess.level.id;
+  S._lastResult = {pct:pct, stars:stars, xpGain:xpGain, coinGain:coinGain, correct:sess.correct, wrong:sess.wrong, total:sess.total, level:sess.level};
+  saveProgress();
+  sfxLevel();
+  confettiBurst();
+  checkAchievements();
+  S.screen='level-result';
+  render();
+}
+function resultContinue(){
+  var nextId = S._lastResult.level.id + 1;
+  var nextLv = levelById(nextId);
+  S.session=null;
+  if(nextLv){ S.screen='levels'; }
+  else { S.screen='home'; }
+  render();
+}
+
+/* ===================== RESULT / GAME OVER SCREENS ===================== */
+function renderLevelResult(){
+  var r = S._lastResult;
+  var isFinal = r.level.id===7;
+  var rank = isFinal ? rankFor(r.pct) : null;
+  var starStr = '⭐'.repeat(r.stars) + '☆'.repeat(3-r.stars);
+  return topBar(false) +
+    '<div class="result-wrap">'+
+      (isFinal ? '<div class="rank-badge">'+rank.emo+'</div><div class="rank-name">'+rank.name+'</div>' :
+        '<div class="rank-badge">🎉</div><div class="rank-name">Level Complete!</div>')+
+      '<div class="star-row">'+starStr+'</div>'+
+      '<div class="stat-grid">'+
+        '<div class="stat-box"><b>'+r.pct+'%</b><span>Accuracy</span></div>'+
+        '<div class="stat-box"><b>'+r.correct+' / '+r.total+'</b><span>Correct</span></div>'+
+        '<div class="stat-box"><b>+'+r.xpGain+'</b><span>XP Earned</span></div>'+
+        '<div class="stat-box"><b>+'+r.coinGain+'</b><span>Coins Earned</span></div>'+
+      '</div>'+
+      '<button class="big-btn btn-primary" data-action="result-continue" style="justify-content:center;">'+
+        '<span class="emo">➜</span> '+(isFinal?'Back to Home':'Continue')+'</button>'+
+    '</div>';
+}
+function renderGameOver(){
+  return topBar(false) +
+    '<div class="result-wrap">'+
+      '<div class="rank-badge">💔</div>'+
+      '<div class="rank-name">Out of Lives!</div>'+
+      '<div class="center-note" style="padding-top:10px;">Don\'t give up! Try again and become a Computer Master!</div>'+
+      '<button class="big-btn btn-primary" data-action="result-retry" style="justify-content:center;margin-top:16px;">'+
+        '<span class="emo">🔄</span> Try Again</button>'+
+      '<button class="big-btn btn-cyan" data-action="go-home" style="justify-content:center;margin-top:10px;">'+
+        '<span class="emo">🏠</span> Home</button>'+
+    '</div>';
+}
+
+/* ===================== INIT ===================== */
+loadProgress().then(function(){
+  S.screen='home';
+  render();
+});
+</script>
+</body>
+</html>
